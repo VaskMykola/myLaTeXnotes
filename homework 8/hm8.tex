@@ -1,0 +1,83 @@
+\documentclass{assignment}
+
+\usepackage{amsmath}
+\begin{document}
+
+\assignmentTitle{Mykola Vaskevych}{22372199}{assets/images.jpg}
+{Foundations of Computer Science 2}{Homework 8}
+
+\section*{Task 1}
+Use the while rule to prove that the following program segment is correct:
+\[\{ n\geq 1 \wedge i = 1 \wedge sum = 0 \wedge f = 1\}\]
+\[while \quad (i \leq n) \quad \{\]
+\[sum = sum + f;\]
+\[i = i + 1;\]
+\[f = f * 1;\}\]
+
+\section*{Defining the Invariant}
+\begin{center}
+    \begin{tabular}{|c|c|c|c|}
+        sum & i & f \\
+        \hline
+         0 & 1 & 1 \\
+         1 & 2 & 2 \\
+         3 & 3 & 6 \\
+         9 & 4 & 24 \\
+         33 & 5 & 120\\
+         \hline
+    \end{tabular}
+\end{center}
+So, out invariant will be: \[\{sum = \sum_{j=1}^{j=i-1} j! \wedge f = i! \wedge i \leq n + 1 \}\]
+Then we can write out Hoare Triple:
+\[\{D \wedge I\} C \{I\}\]
+
+\[\{i \leq n \wedge sum = \sum_{j=1}^{j=i-1} j! \wedge f = i! \wedge i \leq n + 1 \}\quad sum = sum + f; \quad i = i + 1; \quad f = f * i \quad \{\sum_{j=1}^{j=i-1}j! \wedge f = i! \wedge i \leq n + 1 \} \]
+\newpage
+\section*{Concatenation Rule}
+\begin{enumerate}
+    \item  
+        \[\{i \leq n \wedge sum = \sum_{j=1}^{j=i-1} j! \wedge f = i! \wedge i \leq n + 1\}\quad sum = sum + f \{R_1\} \]
+    \item
+        \[\{R_1\} \quad i = i + 1 \quad \{R_2\}\]
+    \item
+        \[\{R_2\} \quad f = f * i \quad \{sum = \sum_{j=1}^{j=i-1}j! \wedge f = i! \wedge i \leq n + 1\}\]
+
+\end{enumerate}
+
+\section*{Assignment Rule for (3)}
+    \[R_2 = Q_{E_1}^V\]
+    \[Q_{E_1}^V: \{sum = \sum_{j=1}^{j=i-1}j! \wedge f = i! \wedge i \leq n + 1\}_{f=f*i}^f\]
+    \[Q_{E_1}^V: \{sum = \sum_{j=1}^{j=i-1}j! \wedge f*i = i! \wedge i \leq n + 1\}\]
+    \[Q_{E_1}^V: \{sum = \sum_{j=1}^{j=i-1}j! \wedge f = (i-1)! \wedge i \leq n + 1\}\]
+\section*{Assignment Rule for (2)}
+    \[R_1 = Q_{E_2}^V\]
+    \[Q_{E_2}^V: \{sum = \sum_{j=1}^{j=i-1}j! \wedge f = (i-1)! \wedge i \leq n + 1\}_{i = i + 1}^{i}\]
+    \[Q_{E_2}^V: \{sum = \sum_{j=1}^{j=i+1-1}j! \wedge f = (i + 1 -1)! \wedge i+1 \leq n +1\}\]
+    \[Q_{E_2}^V: \{sum = \sum_{j=1}^{j=i}j! \wedge f = i! \wedge i+1 \leq n +1\}\]
+\section*{Assignment Rule for (1)}
+    \[Q_{E_3}^V: \{sum = \sum_{j=1}^{j=i}j! \wedge f = i! \wedge i+1 \leq n +1\}_{sum+f}^{sum}\]
+    \[Q_{E_3}^V: \{sum + f = \sum_{j=1}^{j=i}j! \wedge f = i! \wedge i+1 \leq n +1\}\] 
+
+\section*{Finally}
+\[P: \{i \leq n \wedge sum = \sum_{j=1}^{j=i-1} j! \wedge f = i! \wedge i \leq n + 1\}\]
+\[in P: \{i \leq n\} \Rightarrow \{i \leq n+1\}\]
+\[P: \{i \leq n \wedge sum = \sum_{j=1}^{j=i-1} j! \wedge f = i! \}\]
+\[Q_{E_3}^V: \{sum + f = \sum_{j=1}^{j=i}j! \wedge f = i! \wedge i+1 \leq n +1\}\]
+\[Q_{E_3}^V: \{sum = \sum_{j=1}^{j=i} j! - f \wedge f = i! \wedge i+1 \leq n +1\}\]
+\[Q_{E_3}^V: \{sum = \sum_{j=1}^{j=i} j! - i! \wedge f = i! \wedge i+1 \leq n +1\}\]
+\[Q_{E_3}^V: \{sum = \sum_{j=1}^{j=i-1} j! \wedge f = i! \wedge i+1 \leq n +1\}\]
+
+\[\{i \leq n \wedge sum = \sum_{j=1}^{j=i-1} j! \wedge f = i! \} \Rightarrow \{sum = \sum_{j=1}^{j=i-1} j! \wedge f = i! \wedge i+1 \leq n +1\} \]
+\begin{enumerate}
+    \item
+        \[\{i \leq n \Rightarrow i + 1 \leq n+1\}\]
+    \item
+        \[\{f = i! \Rightarrow f = 1!\}\]
+    \item 
+        \[\{sum = \sum_{j=1}^{j=i-1} j!\} \Rightarrow \{sum = \sum_{j=1}^{j=i-1} j!\}\]
+\end{enumerate}
+\[P \Rightarrow Q_{E_3}^V\]
+So, we proved that this segment of code is correct.
+\end{document}
+
+

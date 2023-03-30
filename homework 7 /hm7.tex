@@ -1,0 +1,67 @@
+\documentclass{assignment}
+
+\usepackage{amsmath}
+\begin{document}
+
+\assignmentTitle{Mykola Vaskevych}{22372199}{assets/images.jpg}
+{Foundations of Computer Science 2}{Homework 7}
+
+\section*{Task 1}
+Use the while rule to prove that the following program segment is correct:
+\[\{i > 0 \wedge result = 1 \wedge n \geq 0\}\]
+\[while \quad (i < n)\{ \]
+\[result = result * x;\]
+\[i = i + 1;\}\]
+\[\{ result = x^n\}\]
+
+Solution:
+Let's define the init values of x and n (doesn't matter): 
+\[x=3\]
+\[n=4\]
+\[i = 0\]
+\[result = 1 \]
+\[while \quad (i<n) \quad \{ result = result * x \quad  i = i+1\}\]
+\[(n \geq 0)\]
+\[x^n = x*x*x*x... (n \quad times)\]
+\begin{center}
+    \begin{tabular}{c|c|c}
+        \hline
+         x(value)& x(formula) & n \\
+         \hline
+         1 & $result$ & 0 \\
+         3 & $x$ & 1 \\
+         9 & $x*x$& 2 \\
+         27 & $x*x*x$ & 3 \\
+         81 & $x*x*x*x$ & 4 \\
+         \hline
+    \end{tabular}
+\end{center}
+\[ result = x^n \wedge i = n\]
+\[invariant : result = x^i \wedge i \leq n\]
+
+
+Apply while Rule:
+\[\{D \wedge I\} C \{ i\}\]
+\[\{i < n \wedge result = x^i \wedge i \leq n\} C \{ result = x^i \leq n\}\]
+
+
+Apply concatenation rule:
+\[\{i < n \wedge result = x^i\} \quad result = result * x \quad \{R\}\]
+\[\{R\} \quad i = i + 1 \quad \{result = x^i \wedge i \leq n \}\]
+Determine $Q_E^V$:
+R we replacing with: \["result = x^{i+1} \wedge (i+1) \leq n"\]
+H.T. (2) is correct because it is if the form: $\{Q_E^V\} V=E \{Q\}$
+
+
+(1) Apply the Assignment rule:
+\[Q_E^V : result =x^{i+1} \wedge (i+1) \leq n\]
+So:
+\[(i< n \wedge result = x^i) \Rightarrow (result * x = x^{i+1} \wedge (i+1) \leq n) \]
+If $i < n$ is true then $(i+1) \leq n$ is also true.
+If $result = x^i$ is true then $result *x = x^{i+1}$ is also true.
+If everything from the left is True then everything from the right is also True.
+
+
+\end{document}
+
+

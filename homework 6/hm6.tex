@@ -1,0 +1,46 @@
+\documentclass{assignment}
+
+\usepackage{amsmath}
+\begin{document}
+
+\assignmentTitle{Mykola Vaskevych}{22372199}{assets/images.jpg}{Foundations of Computer Science 2}{Homework Exercises 6}
+
+
+\section*{Task 1}
+Prove that the following Hoare Triple is correct using the if-else rule:
+\[\{\}\quad if \{x>64\} \quad \{x=63;\} \quad  else \{x=0;\} \quad \{ x \leq 64\}\]
+
+Rule for conditions (with else clause):
+\[\{x>64\} \quad x =63 \quad \{x \leq 64 \} \rightarrow (1)\] 
+\[\{x \leq 64 \}\quad x = 0 \quad \{ x \leq 64\} \rightarrow (2)\]
+
+Apply AR rule on (1):
+\[Q_E^V: \{x \leq 64 \}_{63}^x \]
+\[Q_E^V: \{63 \leq 64\}, P \Rightarrow Q_E^V\]
+\[\{x>64\} \Rightarrow \{63 \leq 64\}\]
+
+Apply AR rule on (2):
+\[Q_E^V: \{x \leq 64 \}_{0}^x \]
+\[Q_E^V: \{0 \leq 64\}, P \Rightarrow Q_E^V\]
+\[\{ x \leq 64\} \Rightarrow \{0 \leq 64\}\]
+
+\section{Task 2}
+Prove that the following Hoare Triple is correct using the if rule:
+\[\{\} \quad if\{x<0\} \quad x = 10 \quad \{x \geq 0\}\]
+split:
+\begin{enumerate}
+    \item \[\{x<0\} x = 10 \{x \geq 0\}\]
+    \item \[\{x<0\} \Rightarrow \{x \geq 0\} \rightarrow True\]
+\end{enumerate}
+Appling AR Rule on (1):
+\[Q_E^V: \{x \geq 0\}_{10}^x\]
+\[Q_E^V: \{10 \geq 0\} \rightarrow True\]
+\[P \rightarrow Q_E^V\]
+\[\{x \geq 0\} \rightarrow True\]
+
+
+        
+
+\end{document}
+
+

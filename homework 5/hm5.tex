@@ -1,0 +1,70 @@
+\documentclass{assignment}
+
+\usepackage{amsmath}
+\begin{document}
+
+\assignmentTitle{Mykola Vaskevych}{22372199}{assets/images.jpg}{Foundations of Computer Science 2}{Homework Exercises 5}
+
+
+\section*{Task 1}
+Using the Assignment Rule determine if the following Hoare Triple is correct:
+
+    \[\{x > 10\} x = x - 7\{x \geq 4\}\]
+
+Assignment Rule:
+\[Q_E^V:\{x\geq4\}_{x-7}^x\]
+\[Q_E^V:\{x-7 \geq 4\}\]
+\[Q_E^V:\{x \geq 11\}\]
+\[x > 10 \Leftrightarrow x \geq 11\]
+Therefore, this Hoare triple is correct.
+\section*{Task 2}
+Prove that the following Hoare Triple is correct using the Assignment Rule and the (Modified) Concatenation Rule:
+\[\{x>27\}x=x+12;x=x+12\{x>41\}\]
+Concatenation Rule:
+\[\{x>27\}x=x+12 \{R\}\]
+\[\{S\}x=x+12 \{x>41\}\]
+Assignment Rule:
+\begin{enumerate}
+    \item
+    \[Q_E^V:\{x > 41\}_{x+12}^x\]
+    \[Q_E^V:\{x+12>41\}\]
+    \[Q_E^V:\{x>29\}\]
+    \[ R \Rightarrow S \quad \textrm{and} \quad S \Rightarrow Q_E^V \]
+    \item
+    \[Q_E^V: \{x>29\}_{x+12}^x\]
+    \[Q_E^V:\{x+12>29\}\]
+    \[Q_E^V:\{x>17\}\]
+    \[x>27 \Rightarrow x > 17\]
+    Therefore, this Hoare triple is correct.
+\end{enumerate}
+
+
+\newpage
+\section*{Task 3}
+Prove that the following Hoare Triple is correct using the Assignment Rule and the (Modified) Concatenation Rule:
+\[\{x > 13\}x = x-2; y = x + 5\{x > 10 \wedge y > 15\}\]
+Concatenation Rule:
+\[\{x>13\} x = x - 2 \{R\}\]
+\[\{S\} y = x + 5 \{ x > 10 \wedge y > 15 \}\]
+Assignment Rule:
+\begin{enumerate}
+    \item
+        \[Q_E^V: \{x>10 \wedge y > 15\}_{ x + 5 }^y\]
+        \[Q_E^V: \{x>10 \wedge x + 5 > 15\}\]
+        \[Q_E^V: \{x>10 \wedge x> 10\}\]
+        \[Q_E^V: \{x> 10\}\]
+        \[ R \Rightarrow S \quad \textrm{and} \quad S \Rightarrow Q_E^V \]
+    \item
+       \[Q_E^V: \{ x > 10\}_{x-2}^x\]
+       \[Q_E^V: \{x-2 > 10\}\]
+       \[Q_E^V: \{x>12\}\]
+       \[x>13 \Rightarrow x >12\]
+       Therefore, this Hoare triple is correct.
+\end{enumerate}
+
+
+        
+
+\end{document}
+
+
